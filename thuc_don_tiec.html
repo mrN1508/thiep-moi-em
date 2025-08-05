@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiệp Mời Đặc Biệt Cho Em</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at 60% 40%, #ffe5ec 0%, #fffbe9 100%);
+      min-height: 100vh;
+      font-family: 'Quicksand', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 80% 20%, #fff6 0 120px, transparent 300px),
+                  radial-gradient(circle at 20% 80%, #ffe5ec88 0 180px, transparent 400px);
+      z-index: 0;
+    }
+    .center-box {
+      width : 100%;
+      height: 100%;
+      /* display: flex; */
+      align-items: center;
+      justify-content: center; 
+    }
+    .cover, .invitation-frame {
+      max-width: 700px;
+      width: 95vw;
+      margin: 0 auto;
+      border-radius: 32px;
+      box-shadow: 0 8px 40px #e4717a22, 0 1.5px 8px #e4717a22;
+      background: #fffbe9ee;
+      border: 3.5px solid #e4717a;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .cover {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 420px;
+      padding: 60px 30px 50px 30px;
+      cursor: pointer;
+      z-index: 10;
+      animation: pulseCover 2s infinite;
+    }
+    @keyframes pulseCover {
+      0%,100% { box-shadow: 0 8px 40px #e4717a22, 0 1.5px 8px #e4717a22;}
+      50% { box-shadow: 0 16px 60px #e4717a55, 0 3px 16px #e4717a33;}
+    }
+    .cover .love-icon {
+      font-size: 3.2rem;
+      color: #e4717a;
+      margin-bottom: 18px;
+      animation: pulse 1.6s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.13);}
+      100% { transform: scale(1);}
+    }
+    .cover-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.7rem;
+      color: #e4717a;
+      text-align: center;
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px #fff7, 0 1px 0 #fff;
+    }
+    .cover-desc {
+      text-align: center;
+      font-size: 1.18rem;
+      color: #b85c6e;
+      margin-bottom: 30px;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+    .cover .open-btn {
+      margin-top: 18px;
+      padding: 12px 38px;
+      font-size: 1.15rem;
+      background: linear-gradient(90deg, #e4717a 60%, #ffb6b9 100%);
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-family: 'Quicksand', Arial, sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #e4717a33;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .cover .open-btn:hover {
+      background: linear-gradient(90deg, #ffb6b9 0%, #e4717a 100%);
+      transform: scale(1.06);
+    }
+    .invitation-frame {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.98) translateY(30px);
+      transition: opacity 0.7s, transform 0.7s;
+    }
+    .invitation-frame.opened {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+      z-index: 20;
+    }
+    /* --- Nội dung bên trong giữ nguyên như cũ --- */
+    .header-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.7rem;
+      color: #e4717a;
+      text-align: center;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px #fff7, 0 1px 0 #fff;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 1.18rem;
+      color: #b85c6e;
+      margin-bottom: 30px;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+    .menu-section {
+      background: #fffdfaee;
+      border-radius: 18px;
+      border: 1.5px solid #e4717a;
+      box-shadow: 0 2px 12px #e4717a22;
+      padding: 24px 18px 18px 18px;
+      margin-top: 18px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+    .menu-section h2 {
+      font-family: 'Great Vibes', cursive;
+      color: #e4717a;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 18px;
+      letter-spacing: 1.5px;
+    }
+    .menu-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+    }
+    .menu-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 18px #e4717a22;
+      border: 1.5px solid #fbeee6;
+      overflow: hidden;
+      width: 270px;
+      position: relative;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .menu-card:hover {
+      transform: translateY(-6px) scale(1.025);
+      box-shadow: 0 10px 32px #e4717a44;
+      border-color: #e4717a;
+    }
+    .menu-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-bottom: 1px solid #fbeee6;
+    }
+    .card-body {
+      padding: 16px 14px 12px 14px;
+    }
+    .card-body h4 {
+      font-family: 'Quicksand', Arial, sans-serif;
+      font-size: 1.08rem;
+      color: #e4717a;
+      margin-bottom: 7px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .card-body p {
+      margin-bottom: 0;
+      color: #6d4c41;
+      font-size: 0.99rem;
+    }
+    .menu-card::after {
+      content: "♡";
+      color: #e4717a;
+      font-size: 1.2rem;
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      opacity: 0.7;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .menu-card:hover::after {
+      opacity: 1;
+      color: #e4717a;
+      text-shadow: 0 0 8px #fff7;
+    }
+    .footer {
+      text-align: center;
+      color: #b85c6e;
+      margin-top: 30px;
+      font-size: 1.08rem;
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+    .footer .signature {
+      color: #e4717a;
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.3rem;
+      display: block;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+    @media (max-width: 900px) {
+      .menu-list { flex-direction: column; align-items: center; gap: 18px;}
+      .menu-card { width: 98vw; max-width: 320px;}
+      .invitation-frame, .cover { padding: 18px 3vw 18px 3vw;}
+    }
+    .heart {
+      position: fixed;
+      top: -40px;
+      font-size: 2.1rem;
+      color: #e4717a;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.85;
+      animation: fall 2.8s linear forwards;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.2;
+      }
+    }
+    .glow {
+      position: absolute;
+      width: 320px; height: 320px;
+      left: 50%; top: 0;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, #fffbe9cc 0 60px, #ffe5ec44 120px, transparent 70%);
+      filter: blur(12px);
+      opacity: 0.7;
+      animation: moveGlow 8s linear infinite alternate;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes moveGlow {
+      0% { top: 0; left: 50%;}
+      100% { top: 60px; left: 60%;}
+    }
+  </style>
+</head>
+<body>
+  <div class="center-box">
+    <div class="cover" id="cover">
+      <span class="love-icon">💌</span>
+      <div class="cover-title">Thiệp Mời Tình Yêu Của Anh 💖</div>
+      <div class="cover-desc">
+        Nhấn để mở thiệp mời và xem thực đơn tối lãng mạn dành riêng cho em!<br>
+        <button class="open-btn" onclick="openInvite()">Mở Thiệp</button>
+      </div>
+    </div>
+    <div class="invitation-frame" id="invitation">
+      <span class="love-icon">💌</span>
+      <div class="header-title">Gửi riêng cho em</div>
+      <div class="subtitle">
+        Mời em đến bữa tiệc nhỏ kỷ niệm tình yêu của chúng mình.<br>
+        <div style="text-align:center; color:#e4717a; font-size:1.13rem; margin-bottom:18px;">
+        <b>⏰ Thời gian:</b> 19:00, Thứ Bảy, 15/08/2025<br>
+        <b>📍 Địa điểm:</b> Pizza 4P's Indochina , Đà Nẵng
+      </div>
+        <span style="color:#e4717a;font-weight:bold;">🌸 Thực Đơn Tối Đặc Biệt Cho Em 🌸</span>
+      </div>
+      
+      <div class="menu-section">
+        <h2>Thực Đơn</h2>
+        <div class="menu-list">
+
+          <div class="menu-card">
+            <img src="eeb814d6-7877-443a-a5f0-326fb4740acb.png" alt="Phô mai Burrata kèm thịt nguội">
+            <div class="card-body">
+              <h4>Phô mai Burrata kèm thịt nguội và trái cây nhiệt đới Salad </h4>
+              <p>Salad trái cây xanh tươi, kết hợp thịt nguội nhập khẩu và phô mai Burrata mềm mịn.</p>
+            </div>
+          </div>
+
+          <div class="menu-card">
+            <img src="96c8a756-d304-4cfb-88c1-c499290c9070.png" alt="Thịt nguội cuộn Rocket">
+            <div class="card-body">
+              <h4>Thịt nguội cuộn lá Rocket và phô mai Ricotta </h4>
+              <p>Thịt nguội cuộn phô mai Ricotta và lá Rocket hữu cơ, vị cân bằng giữa đắng nhẹ, béo và ngọt thanh.</p>
+            </div>
+          </div>
+
+          <div class="menu-card">
+            <img src="79050711-6e67-42d6-bf82-0a901b1e49dd.png" alt="Phô mai Camembert">
+            <div class="card-body">
+              <h4>Phô mai Camembert kẹp Mascarpone dầu nấm Truffle </h4>
+              <p>Camembert béo ngậy hòa quyện cùng Mascarpone và chút thơm đặc trưng của dầu nấm Truffle.</p>
+            </div>
+          </div>
+
+          <div class="menu-card">
+            <img src="0d2a4d9f-4287-4652-b873-f3005d7d94cf.png" alt="Mì Fettucine sốt kem cá hồi">
+            <div class="card-body">
+              <h4>Mì Fettucine nhà làm kèm xốt kem cá hồi</h4>
+              <p>Mì Fettucine tươi kết hợp sốt kem cá hồi béo mịn, điểm chút vị chanh tươi và tiêu hồng thơm nồng.</p>
+            </div>
+          </div>
+
+          <div class="menu-card">
+            <img src="886c76af-0468-43de-8d57-0bb7c9090d74.png" alt="Pizza ghép">
+            <div class="card-body">
+              <h4>Pizza ghép</h4>
+              <p>
+                (1/2) Pizza Hải sản sốt cà chua cay với phô mai hun khói<br>
+                (1/2) Pizza Hawaiian 4P's kiểu Đà Nẵng
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="footer">
+        Anh rất mong được cùng em thưởng thức bữa tối này!<br>
+        <span class="signature">Yêu em nhiều 💖</span>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:18px;top:18px;font-size:2rem;opacity:0.15;pointer-events:none;">🌸</div>
+  <div style="position:absolute;right:18px;top:18px;font-size:2rem;opacity:0.15;pointer-events:none;">🌸</div>
+  <div style="position:absolute;left:18px;bottom:18px;font-size:2rem;opacity:0.15;pointer-events:none;">🌸</div>
+  <div style="position:absolute;right:18px;bottom:18px;font-size:2rem;opacity:0.15;pointer-events:none;">🌸</div>
+  <script>
+  function createHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  const icons = ['💖','🎈','🌸','💗','💝'];
+  heart.innerText = icons[Math.floor(Math.random()*icons.length)];
+  heart.style.left = Math.random() * 96 + 'vw';
+  heart.style.fontSize = (1.6 + Math.random() * 1.5) + 'rem';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 3000);
+}
+
+  function rainHearts() {
+    let count = 0;
+    const interval = setInterval(() => {
+      createHeart();
+      count++;
+      if (count > 28) clearInterval(interval);
+    }, 90);
+  }
+
+  function openInvite() {
+    document.getElementById('cover').style.opacity = 0;
+    document.getElementById('cover').style.pointerEvents = 'none';
+    setTimeout(function() {
+      document.getElementById('cover').style.display = 'none';
+      document.getElementById('invitation').classList.add('opened');
+      rainHearts(); // Gọi hiệu ứng trái tim rơi khi mở thiệp
+    }, 700);
+  }
+  // Cho phép click vào cả bìa để mở
+  document.getElementById('cover').addEventListener('click', function(e) {
+    if(e.target.className !== 'open-btn') openInvite();
+  });
+</script>
+</body>
+</html>
